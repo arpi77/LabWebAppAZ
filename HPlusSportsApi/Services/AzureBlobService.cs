@@ -24,7 +24,23 @@ namespace HPlusSportsApi.Services
 
         public async Task<Models.BlobReference> GetBlobForWriteAsync(string blobName)
         {
-            return null;
+            CloudStorageAccount acct = CloudStorageAccount.Parse(
+                config[Constants.KEY_STORAGE_CNN]);
+
+            var blobClient = acct.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference(containerName);
+            var blob = container.GetBlockBlobReference(blobName);
+
+            //set properties
+            blob.Properties.ContentType = "image/jpeg";
+            blob.Properties.CacheControl = "public";
+
+            var blobStream = await blob.OpenWriteAsync();
+            return new Models.BlobReference
+            {
+                BlobStream = blobStream,
+                BlobUri = blob.Uri.ToString()
+            };
         }
     }
 }

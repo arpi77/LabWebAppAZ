@@ -33,8 +33,10 @@ namespace HPlusSportsApi.Services
 
         public async Task<T> AddProductAsync<T>(T product)
         {
-            //placeholder
-            return default(T);
+            var dbResponse = await docClient.CreateDocumentAsync(
+                productCollectionUri, product);
+
+            return (dynamic)dbResponse.Resource;            
         }
 
         public async Task<ProductBase> GetProductAsync(string id)
@@ -50,7 +52,12 @@ namespace HPlusSportsApi.Services
 
         public async Task AddImageToProductAsync(string id, string imageUri)
         {
-           
+            var docUri = UriFactory.CreateDocumentUri(
+                 dbName, collectionName, id);
+            var doc = await docClient.ReadDocumentAsync(docUri);
+
+            doc.Resource.SetPropertyValue("image", imageUri);
+            await docClient.ReplaceDocumentAsync(doc);
         }
     }
 }
