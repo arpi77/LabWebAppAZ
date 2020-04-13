@@ -8,6 +8,9 @@ using HPlusSportsWeb.Models;
 
 namespace HPlusSportsWeb.Controllers
 {
+    /// <summary>
+    /// Serves the basic static page content.
+    /// </summary>
     public class HomeController : Controller
     {
         public IActionResult Index()

@@ -34,19 +34,17 @@ namespace HPlusSportsWeb
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            //configure API HTTP Client
+          
+            //Create an add the single HTTP client to the services
+            //This will be injected into the controllers that need it
             var apiAddress = Configuration[Constants.KEY_API_BASE_URI];
-            Uri apiBaseUri = new Uri(apiAddress);
+            Uri apiBaseAddress = new Uri(apiAddress);
 
             HttpClient apiClient = new HttpClient();
-            apiClient.BaseAddress = apiBaseUri;
-            ServicePointManager.FindServicePoint(
-                apiBaseUri).ConnectionLeaseTimeout = 60000;
-            //add additional service point configuation here if necessary
+            apiClient.BaseAddress = apiBaseAddress;
+            ServicePointManager.FindServicePoint(apiBaseAddress).ConnectionLeaseTimeout = 60000;
 
             services.AddSingleton<HttpClient>(apiClient);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

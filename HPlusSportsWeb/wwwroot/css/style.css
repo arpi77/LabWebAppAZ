@@ -530,7 +530,6 @@ em {
 /*product detail*/
 
 .product-detail {
-    padding: 25px;
     display:flex;
     align-items: flex-start;
 }
@@ -546,6 +545,10 @@ em {
 }
 
 .product-detail .product-description {
+    padding-left: 25px;
+}
+
+.product-detail .product-size {
     padding-left: 25px;
 }
 
@@ -574,4 +577,11 @@ em {
 
 section.default {
     padding:25px;
+}
+
+.product-add {
+    padding: 25px;
+    display: flex;
+    align-items: flex-start;
+    justify-content:space-around;
 }
